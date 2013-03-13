@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action='add' method='post'>
+    <fieldset>
+        {% csrf_token %}
+        <label>URL</label>
+        <input type='text' id='url'>
+        <button type='submit' class='btn'>Submit</button>
+    </fieldset>
+</form>
+{% endblock content %}

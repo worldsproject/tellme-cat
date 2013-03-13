@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ TITLE }} | FollowUp</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link href='{{ STATIC_URL }}css/bootstrap.min.css' rel='stylesheet' media='screen'>
+    </head>
+
+    <body>
+        <div class='navbar'>
+            <div class='navbar-inner'>
+                <a class='brand' href='/'>TellMe.cat</a>
+                <ul class='nav'>
+                    <li><a href='list'>My Stories</a></li>
+                    <li><a href='add_url'>Add Story</a></li>
+                    <li><a href='respond'>Add Update</a></li>
+                </ul>
+                {% if user.is_authenticated %}
+                <div class='pull-right'>
+                    <p>Hello {{ user.username }}!</p>
+                    <button class='btn btn-small'>Logout</button>
+                </div>
+                {% else %}
+                <form class='navbar-form pull-right'>
+                    {% csrf_token %}
+                    <input id='username' type='text' placeholder='Username'>
+                    <input id='password' type='password' placeholder='Passoword'>
+                    <button action='process_login' method='post'>Login</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class='container'>
+            {% block content %}{% endblock content %}
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src='{{ STATIC_URL }}js/bootstrap.min.js'></script>
+        {% block scripts %}{% endblock scripts %}
+    </body>
+</html>
