@@ -16,16 +16,17 @@
                     <li><a href='respond'>Add Update</a></li>
                 </ul>
                 {% if user.is_authenticated %}
-                <div class='pull-right'>
-                    <p>Hello {{ user.username }}!</p>
-                    <button class='btn btn-small'>Logout</button>
-                </div>
-                {% else %}
-                <form class='navbar-form pull-right'>
+                <form class='navbar-form pull-right' action='process_logout' method='post'>
                     {% csrf_token %}
-                    <input id='username' type='text' placeholder='Username'>
-                    <input id='password' type='password' placeholder='Passoword'>
-                    <button action='process_login' method='post'>Login</button>
+                    Hello {{ user.username }}!
+                    <button class='btn btn-small'>Logout</button>
+                </form>
+                {% else %}
+                <form class='navbar-form pull-right' action='process_login' method='post'>
+                    {% csrf_token %}
+                    <input name='username' type='text' placeholder='Username'>
+                    <input name='password' type='password' placeholder='Passoword'>
+                    <button class='btn btn-small'>Login</button>
                 </form>
                 {% endif %}
             </div>

@@ -1,4 +1,6 @@
 {% extends 'base.html' %} 
 {% block content %} 
-
+{% for story in stories %}
+<a href='{{ story.link }}'>{{ story.title }}</a>
+{% endfor %}
 {% endblock content %} 
