@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form>
+<form action='respond_url' method='post'>
     {% csrf_token %}
     <label>Response URL</label>
-    <input type='text'>
+    <input type='text' name='new'>
 
     <label>Old URL</label>
-    <input type='text'>
+    <input type='text' name='old'>
 
     <button type='submit' class='btn btn-success'>Post</button>
 </form>

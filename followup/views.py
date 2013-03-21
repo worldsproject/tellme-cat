@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
 from urlparse import urlparse
-from models import Story
+from models import Story, FollowUp
 import urllib
 import BeautifulSoup
 
@@ -28,10 +28,6 @@ def add(request):
     return redirect('/list.html')
 
 @login_required
-def add_url(request):
-    return render_to_response('add_url.html',  context_instance=RequestContext(request))
-
-@login_required
 def respond(request):
     old = request.POST['old']
     new = request.POST['new']
@@ -49,13 +45,14 @@ def respond(request):
     soup = BeautifulSoup.BeautifulSoup(urllib.urlopen(new_parsed.geturl()))
     title = soup.title.string
 
-    story = Story.objects.filter(link=old_parsed.geturl)
+    story = Story.objects.filter(link=old_parsed.geturl())
+    print(story[0])
 
     # if nothing is returned, we need to return an error.
 
-    r = FollowUp(link=new_parsed.geturl(), domain=new_parsed[1], story=story)
+    r = FollowUp(link=new_parsed.geturl(), domain=new_parsed[1], story=story[0])
     
-    return redirect('/link.html')
+    return redirect('/list.html')
 
 def process_login(request):
     username = request.POST['username']
@@ -67,8 +64,7 @@ def process_login(request):
         auth_login(request, user)
         return redirect('/list.html')
     else:
-        print('Login Failed')
-        #return invalid login
+        return redirect('/register.html')
         
 def process_logout(request):
     logout(request)
@@ -82,11 +78,10 @@ def list_page(request):
     for story in stories:
         data.append(story)
         fu = story.followup_set.all()
-        print('----')
-        print(fu)
-        print('---')
 
         data.append('>')
+        print('Fu count:')
+        print(fu.count())
 
         if not fu:
             data.append('x')

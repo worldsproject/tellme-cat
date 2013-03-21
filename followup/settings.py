@@ -5,7 +5,7 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 DIRNAME = os.path.dirname(__file__)
-
+TEST_RUNNER = 'django_coverage.coverage_runner.CoverageRunner'
 
 ADMINS = (
     ('Tim Butram', 'tbutram@worldsproject.org'),
