@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form>
+    {% csrf_token %}
+    <label>Response URL</label>
+    <input type='text'>
+
+    <label>Old URL</label>
+    <input type='text'>
+
+    <button type='submit' class='btn btn-success'>Post</button>
+</form>
+{% endblock content %}

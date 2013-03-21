@@ -33,7 +33,29 @@ def add_url(request):
 
 @login_required
 def respond(request):
-    return HttpResponse('Respond Page')
+    old = request.POST['old']
+    new = request.POST['new']
+
+    old_parsed = urlparse(old)
+
+    if old_parsed.scheme == '':
+        old_parsed = urlparse('http://' + old)
+
+    new_parsed = urlparse(new)
+
+    if new_parsed.scheme == '':
+        new_parsed = urlparse('http://' + new)
+
+    soup = BeautifulSoup.BeautifulSoup(urllib.urlopen(new_parsed.geturl()))
+    title = soup.title.string
+
+    story = Story.objects.filter(link=old_parsed.geturl)
+
+    # if nothing is returned, we need to return an error.
+
+    r = FollowUp(link=new_parsed.geturl(), domain=new_parsed[1], story=story)
+    
+    return redirect('/link.html')
 
 def process_login(request):
     username = request.POST['username']
@@ -55,9 +77,23 @@ def process_logout(request):
 @login_required
 def list_page(request):
     stories = request.user.story_set.all()
-    followups = []
-
+    data = []
+    data.append('>')
     for story in stories:
-        followups.push(story.followup_set.all())
+        data.append(story)
+        fu = story.followup_set.all()
+        print('----')
+        print(fu)
+        print('---')
 
-    return render_to_response('list.html', {'stories':stories, 'followups':followups}, context_instance=RequestContext(request))
+        data.append('>')
+
+        if not fu:
+            data.append('x')
+            data.append('<')
+        else:
+            for f in fu:
+                data.append(f)
+    data.append('<')
+    print(data)
+    return render_to_response('list.html', {'data':data,}, context_instance=RequestContext(request))
