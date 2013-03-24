@@ -1,28 +1,27 @@
 from django.utils import unittest
 from followup.models import Story, FollowUp
 from django.test.client import Client
-
-class WalkThroughTestCase(unittest.TestCase):
-    def test_URLs(self):
-        c = Client()
-
-        c.login(username='unit', password='unit')
-        c.get('/login')
-        c.get('/add')
-        c.get('/')
-        c.get('/respond')
-        c.get('/list')
+from BeautifulSoup import BeautifulSoup
 
 class AddingItemsTestCase(unittest.TestCase):
     def test_add(self):
+        from django.contrib.auth.models import User
+        user = User.objects.create_user('add', 'add', 'add')
         url = 'www.example.org'
         c = Client()
+        self.assertTrue(c.login(username='add', password='add'))
 
-        c.login(username='unit', password='unit')
+        response = c.post('/add_url', {'url':url}, follow=True)
 
-        c.get('/add')
-        c.post('/add_url', {'url':url})
-        
+        self.assertNotEqual(response.redirect_chain[0][0], 'http://testserver/login?next=/add_url')
+
+        response = c.get('/list')
+
+        soup = BeautifulSoup(response.content)
+
+        items = soup.find(id='items')
+        print(items)
+        print(items.find_next('ul'))
 
 class LoginTestCase(unittest.TestCase):
 

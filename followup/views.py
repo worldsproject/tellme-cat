@@ -80,8 +80,6 @@ def list_page(request):
         fu = story.followup_set.all()
 
         data.append('>')
-        print('Fu count:')
-        print(fu.count())
 
         if not fu:
             data.append('x')
@@ -90,5 +88,5 @@ def list_page(request):
             for f in fu:
                 data.append(f)
     data.append('<')
-    print(data)
+
     return render_to_response('list.html', {'data':data,}, context_instance=RequestContext(request))
