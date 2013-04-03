@@ -1,4 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-A website to tell when new information comes up.
+<div class='row'>
+    <div class='span8'>
+        <h3>What <em>is</em> TellMe.cat?</h3>
+        <p>TellMe.cat is a site made to help you discover those lost tidbits of news that you found interesting, <em>but forgot about</em>. Just tag a story that you want more information about, when it happens, TellMe.cat will TellYou.</p>
+    </div>
+    <div class='span4'>
+        <img src='{{ STATIC_URL }}img/cat.png'>
+    </div>
+</div>
+<div class='row'>
+    <div class='span4'>
+        <p>Image Here</p>
+    </div>
+    <div class='span8'>
+        <h3>What's planned for the future?</h3>
+        <dl>
+            <dt>Achievements and Badges</dt>
+            <dd>Did you find an update to a story that 1,000 other people wanted? Or have you found updates many different stories? Keep track of your progress in helping people find out more</dd>
+            <dt>Content Creator Stats</dt>
+            <dd>Find out which of your articles are popular, and provide updates to them. Cater to your readers.</dd>
+        </dl>
+    </div>
+</div>
 {% endblock content %}

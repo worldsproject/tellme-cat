@@ -46,12 +46,11 @@ def respond(request):
     title = soup.title.string
 
     story = Story.objects.filter(link=old_parsed.geturl())
-    print(story[0])
 
     # if nothing is returned, we need to return an error.
 
     r = FollowUp(link=new_parsed.geturl(), domain=new_parsed[1], story=story[0])
-    
+    r.save() 
     return redirect('/list.html')
 
 def process_login(request):

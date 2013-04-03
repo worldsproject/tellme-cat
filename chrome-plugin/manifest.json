@@ -6,6 +6,8 @@
     "version": "1.0",
 
     "permissions": [
+        "cookies",
+        "127.0.0.1",
         "http://tellme.cat/"
         ],
     "browser_action": {

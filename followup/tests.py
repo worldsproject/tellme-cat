@@ -7,7 +7,7 @@ class AddingItemsTestCase(unittest.TestCase):
     def test_add(self):
         from django.contrib.auth.models import User
         user = User.objects.create_user('add', 'add', 'add')
-        url = 'www.example.org'
+        url = 'www.example.org/story'
         c = Client()
         self.assertTrue(c.login(username='add', password='add'))
 
@@ -20,8 +20,23 @@ class AddingItemsTestCase(unittest.TestCase):
         soup = BeautifulSoup(response.content)
 
         items = soup.find(id='items')
-        print(items)
-        print(items.find_next('ul'))
+        items = items.text
+        self.assertNotEqual(items.find('example.org/story'), -1)
+
+    def test_response(self):
+        c = Client()
+
+        c.login(username='add', password='add')
+
+        response = c.post('/respond_url', {'old':'www.example.org/story', 'new':'www.example.org/update'}, follow=True)
+
+        response = c.get('/list')
+
+        soup = BeautifulSoup(response.content)
+
+        items = soup.find(id='items')
+        items = items.text
+        self.assertNotEqual(items.find('example.org/update'), -1)
 
 class LoginTestCase(unittest.TestCase):
 
