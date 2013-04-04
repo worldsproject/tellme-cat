@@ -93,14 +93,11 @@ def list_page(request):
     return render_to_response('list.html', {'data':data,}, context_instance=RequestContext(request))
 
 def register_user(request):
-    using_persona = False
+    email = request.POST['email']
+    password = request.POST['password']
 
-    if not using_persona:
-        email = request.POST['email']
-        password = request.POST['password']
-
-        User.objects.create_user(email, email, password)
-        user = authenticate(username=email, password=password)
-        auth_login(request, user)
+    User.objects.create_user(email, email, password)
+    user = authenticate(username=email, password=password)
+    auth_login(request, user)
 
     return redirect('/list')
