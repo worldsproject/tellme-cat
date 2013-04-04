@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<form class='form-signin' action='process_login' method='post'>
+<form action='process_login' method='post'>
     {% csrf_token %}
     <h2 class='form-signin-heading'>Please Sign In</h2>
-    <input type='text' name='username' class='input-block-level' placeholder='Email Address'>
-    <input type='password' name='password' class='input-block-level' placeholder='Password'>
+    <input type='text' name='username'  placeholder='Email Address'>
+    <br>
+    <input type='password' name='password'  placeholder='Password'>
     <label class='checkbox'>
         <input type='checkbox' value='remember-me'>Remember Me
     </label>
