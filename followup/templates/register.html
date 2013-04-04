@@ -2,10 +2,11 @@
 {% block content %} 
 <form action='register_user' method='post'>
     {% csrf_token %}
-    <label>Email</label>
-    <input type='text' name='email'>
-    <label>Password</label>
-    <input type='password' name='password'>
-    <button type='submit'>Sign Up</button>
+    <h2 class='form-signin-heading'>Please Register</h2>
+    <input type='text' name='email' placeholder='Email Address'>
+    <br>
+    <input type='password' name='password' placeholder='Password'>
+    <br>
+    <button class='btn btn-large btn-primary' type='submit'>Sign Up</button>
 </form>
 {% endblock content %}
