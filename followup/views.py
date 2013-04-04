@@ -4,6 +4,7 @@ from django.shortcuts import render_to_response, redirect, redirect
 from django.template import RequestContext
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
+from django.contrib.auth.models import User
 from urlparse import urlparse
 from models import Story, FollowUp
 import urllib
@@ -86,6 +87,20 @@ def list_page(request):
         else:
             for f in fu:
                 data.append(f)
+            data.append('<')
     data.append('<')
 
     return render_to_response('list.html', {'data':data,}, context_instance=RequestContext(request))
+
+def register_user(request):
+    using_persona = False
+
+    if not using_persona:
+        email = request.POST['email']
+        password = request.POST['password']
+
+        User.objects.create_user(email, email, password)
+        user = authenticate(username=email, password=password)
+        auth_login(request, user)
+
+    return redirect('/list')

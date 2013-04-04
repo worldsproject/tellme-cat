@@ -53,3 +53,10 @@ class LoginTestCase(unittest.TestCase):
 
     def test_logout(self):
         self.c.get('/process_logout')
+
+    def test_register_user(self):
+        self.c.post('/register_user', {'persona':'false', 'email':'user@email.com', 'password':'password'})
+        self.c.get('/process_logout')
+        r = self.c.get('/list', follow=True)
+
+        self.assertNotEqual(r.redirect_chain[0][0], 'http://testserver/login?next=/list')

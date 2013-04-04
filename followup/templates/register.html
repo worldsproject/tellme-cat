@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %} 
 <form action='register_user' method='post'>
-<button>Use Persona</button>
-<label>Email</label>
-<input type='text' name='email'>
-<label>Password</label>
-<input type='password' name='password'>
-<button type='submit'>Sign Up</button>
+    {% csrf_token %}
+    <button>Use Persona</button>d
+    <label>Email</label>
+    <input type='text' name='email'>
+    <label>Password</label>
+    <input type='password' name='password'>
+    <button type='submit'>Sign Up</button>
 </form>
 {% endblock content %}

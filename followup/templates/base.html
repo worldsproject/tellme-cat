@@ -18,12 +18,13 @@
                 {% if user.is_authenticated %}
                 <form class='navbar-form pull-right' action='process_logout' method='post'>
                     {% csrf_token %}
-                    <h6>Hello {{ user.username }}!</h6>
+                    <strong class='nav'>Hello {{ user.username }}!</strong>
                     <button class='btn btn-small'>Logout</button>
                 </form>
                 {% else %}
                 <form class='navbar-form pull-right' action='process_login' method='post'>
                     {% csrf_token %}
+                    <button class='btn btn-small' action='register'>Register?</button>
                     <input name='username' type='text' placeholder='Username'>
                     <input name='password' type='password' placeholder='Password'>
                     <button class='btn btn-small'>Login</button>
