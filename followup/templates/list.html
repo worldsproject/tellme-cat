@@ -9,8 +9,25 @@
 {% elif item == "x" %}
 <p>There have been no follow ups.</p>
 {% else %}
-<li><a href='{{ item.link }}'>{{ item.link }}</a></li>
+<li><a href='{{ item.title }}'>{{ item.link }}</a><span class='panelbuttons'><i class='icon-remove'></i></span></li>
 {% endif %}
 {% endfor %}
 </ul>
 {% endblock content %} 
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    $('.panelbuttons').hide();
+
+    $('#items li').hover(function() {
+        $(this).find('.panelbuttons').show();
+    }, function() {
+        $(this).find('.panelbuttons').hide();
+    });
+
+    $('.icon-remove').click(function() {
+        console.log($(this).prev().css('background', 'red'));
+    });
+});
+</script>
+{% endblock scripts %}

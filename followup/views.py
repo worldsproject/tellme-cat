@@ -29,6 +29,15 @@ def add(request):
     return redirect('/list.html')
 
 @login_required
+def delete(request):
+    url = request.POST['url']
+
+    story = Story.objects.filter(link = url)
+    story.delete()
+
+    return redirect('/list.html')
+
+@login_required
 def respond(request):
     old = request.POST['old']
     new = request.POST['new']
