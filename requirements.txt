@@ -1,8 +1,13 @@
 BeautifulSoup==3.2.1
 Django==1.5
 South==0.7.6
+coverage==3.6
 distribute==0.6.31
 dj-database-url==0.2.1
+django-browserid==0.8
+django-coverage==1.2.2
+fancy-tag==0.2.0
 gunicorn==0.17.2
 psycopg2==2.4.6
+requests==1.2.0
 wsgiref==0.1.2
