@@ -9,7 +9,7 @@
 {% elif item == "x" %}
 <p>There have been no follow ups.</p>
 {% else %}
-<li><a href='{{ item.title }}'>{{ item.link }}</a><span class='panelbuttons'><i class='icon-remove'></i></span></li>
+<li><a href='{{ item.link }}'>{{ item.title }}</a><span class='panelbuttons'><i class='icon-remove'></i></span></li>
 {% endif %}
 {% endfor %}
 </ul>
