@@ -1,14 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action='respond_url' method='post'>
-    {% csrf_token %}
-    <label>Response URL</label>
-    <input type='text' name='new'>
+<div class='row'>
+    <div class='span5'>
+        <form class="form-horizontal" action='respond_url' method='post'>
+            <legend>Update a Story</legend>
+            <div class="control-group">
+                <label class="control-label" for="new">Update to the Story</label>
+                <div class="controls">
+                    <input type="text" id="new" name='new'>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="old">Old Story</label>
+                <div class="controls">
+                    <input type="password" id="old" name='old'>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-success">Post</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
-    <label>Old URL</label>
-    <input type='text' name='old'>
-
-    <button type='submit' class='btn btn-success'>Post</button>
-</form>
+    <div class='span4'>
+        <legend>How it Works</legend>
+        <p>If you find an update to any story, put both links here. You'll get some karma for adding a link, and for every person who thinks your link is awesome, the more karma you get.</p>
+        <p>The old story doesn't have to be on TellMeCat, you can find updates to webpages before anyone needs them. You'll be extra helpful, and get bonus points for adding a new story!</p>
+</div>
 {% endblock content %}
