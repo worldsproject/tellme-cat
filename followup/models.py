@@ -14,3 +14,8 @@ class FollowUp(models.Model):
     title = models.CharField(max_length=200)
     time = models.TimeField(auto_now=True)
     is_paid = models.BooleanField()
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, unique=True)
+    karma = models.IntegerField()
+    owner = models.
