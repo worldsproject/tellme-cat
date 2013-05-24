@@ -20,7 +20,7 @@
                 </ul>
                 <ul class='pull-right' style="padding-top:7px;">
                     {% if user.is_authenticated %}
-                        <li>{% browserid_logout text='Logout' %}</li>
+                    <li>Hello {{ user.name }} | {% browserid_logout text='Logout' %}</li>
                     {% else %}
                         <li>{% browserid_login text='Login' %}</li>
                     {% endif %}
@@ -30,6 +30,10 @@
 
         <div class='container'>
             {% block content %}{% endblock content %}
+
+            <div class='navbar-fixed-bottom' style='text-align:center;'>
+                    <a href='/privacy'>Privacy Page</a> | <a href='http://www.worldsproject.org'>WorldsProject LLC</a>
+            </div>
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

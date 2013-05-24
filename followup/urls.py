@@ -22,6 +22,7 @@ urlpatterns = patterns('followup.views',
     url(r'^process_logout', 'process_logout'),
     url(r'^login', TemplateView.as_view(template_name='login.html')), 
     url(r'^$', TemplateView.as_view(template_name='index.html')),
+    url(r'^privacy', TemplateView.as_view(template_name='privacy.html')),
     url(r'^browserid/', include('django_browserid.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
