@@ -1,55 +1,72 @@
 {% extends 'base.html' %} 
 {% block content %} 
-<ul id='items'>
-{% for item in data %}
-{% if item == ">" %}
-<ul>
-{% elif item == "<" %}
-</ul>
-{% elif item == "x" %}
-<p>There have been no follow ups.</p>
-{% else %}
-<li><a href='{{ item.link }}'>{{ item.title }}</a><span class='panelbuttons'><i class='icon-remove'></i></span></li>
-{% endif %}
-{% endfor %}
-</ul>
+<div class='row'>
+    <div class='span8'>
+        <ul id='items'>
+            {% for item in data %}
+            {% if item == ">" %}
+            <ul>
+                {% elif item == "<" %}
+            </ul>
+            {% elif item == "x" %}
+            <p>There have been no follow ups.</p>
+            {% else %}
+            <li><a href='{{ item.link }}'>{{ item.title }}</a><span class='panelbuttons'><i class='icon-remove'></i></span></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class='span2 offset2'>
+        <script type="text/javascript"><!--
+            google_ad_client = "ca-pub-8286765364417652";
+            /* TellMe.Cat */
+            google_ad_slot = "8455934912";
+            google_ad_width = 120;
+            google_ad_height = 600;
+            //-->
+        </script>
+        <script type="text/javascript"
+            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+        </script>
+    </div>
+</div>
 {% endblock content %} 
 {% block scripts %}
 <script>
-$(document).ready(function() {
-    $('.panelbuttons').hide();
+    $(document).ready(function() {
+        $('.panelbuttons').hide();
 
-    $('#items li').hover(function() {
-        $(this).find('.panelbuttons').show();
-    }, function() {
-        $(this).find('.panelbuttons').hide();
+        $('#items li').hover(function() {
+            $(this).find('.panelbuttons').show();
+            }, function() {
+            $(this).find('.panelbuttons').hide();
+        });
+
+        $('.icon-remove').click(function() {
+            var url = $(this).parent().siblings().get(0);
+            var form = document.createElement('form');
+            var csrv = "{% csrf_token %}";
+
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', '/delete');
+
+            var hiddenField = document.createElement('input');
+            var csrfField = document.createElement('input');
+
+            hiddenField.setAttribute('type', 'hidden');
+            hiddenField.setAttribute('name', 'url');
+            hiddenField.setAttribute('value', url);
+
+            csrfField.setAttribute('type', 'hidden');
+            csrfField.setAttribute('name', 'csrfmiddlewaretoken');
+            csrfField.setAttribute('value', $(csrv).attr('value'));
+
+            form.appendChild(hiddenField);
+            form.appendChild(csrfField);
+
+            document.body.appendChild(form);
+            form.submit();
+        });
     });
-
-    $('.icon-remove').click(function() {
-        var url = $(this).parent().siblings().get(0);
-        var form = document.createElement('form');
-        var csrv = "{% csrf_token %}";
-
-        form.setAttribute('method', 'post');
-        form.setAttribute('action', '/delete');
-
-        var hiddenField = document.createElement('input');
-        var csrfField = document.createElement('input');
-
-        hiddenField.setAttribute('type', 'hidden');
-        hiddenField.setAttribute('name', 'url');
-        hiddenField.setAttribute('value', url);
-
-        csrfField.setAttribute('type', 'hidden');
-        csrfField.setAttribute('name', 'csrfmiddlewaretoken');
-        csrfField.setAttribute('value', $(csrv).attr('value'));
-
-        form.appendChild(hiddenField);
-        form.appendChild(csrfField);
-
-        document.body.appendChild(form);
-        form.submit();
-    });
-});
 </script>
 {% endblock scripts %}

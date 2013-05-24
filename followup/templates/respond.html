@@ -4,6 +4,7 @@
 <div class='row'>
     <div class='span5'>
         <form class="form-horizontal" action='respond_url' method='post'>
+            {% csrf_token %}
             <legend>Update a Story</legend>
             <div class="control-group">
                 <label class="control-label" for="new">Update to the Story</label>
@@ -14,7 +15,7 @@
             <div class="control-group">
                 <label class="control-label" for="old">Old Story</label>
                 <div class="controls">
-                    <input type="password" id="old" name='old'>
+                    <input type="text" id="old" name='old'>
                 </div>
             </div>
             <div class="control-group">
