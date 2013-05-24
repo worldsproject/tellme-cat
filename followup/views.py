@@ -31,8 +31,8 @@ def add(request):
 @login_required
 def delete(request):
     url = request.POST['url']
+    story = Story.objects.filter(link=url[:-1])
 
-    story = Story.objects.filter(link = url)
     story.delete()
 
     return redirect('/list.html')

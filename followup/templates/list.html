@@ -26,7 +26,29 @@ $(document).ready(function() {
     });
 
     $('.icon-remove').click(function() {
-        console.log($(this).sibling().get(0).css('background', 'red'));
+        var url = $(this).parent().siblings().get(0);
+        var form = document.createElement('form');
+        var csrv = "{% csrf_token %}";
+
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', '/delete');
+
+        var hiddenField = document.createElement('input');
+        var csrfField = document.createElement('input');
+
+        hiddenField.setAttribute('type', 'hidden');
+        hiddenField.setAttribute('name', 'url');
+        hiddenField.setAttribute('value', url);
+
+        csrfField.setAttribute('type', 'hidden');
+        csrfField.setAttribute('name', 'csrfmiddlewaretoken');
+        csrfField.setAttribute('value', $(csrv).attr('value'));
+
+        form.appendChild(hiddenField);
+        form.appendChild(csrfField);
+
+        document.body.appendChild(form);
+        form.submit();
     });
 });
 </script>
