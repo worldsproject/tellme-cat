@@ -14,3 +14,12 @@ class FollowUp(models.Model):
     title = models.CharField(max_length=200)
     time = models.TimeField(auto_now=True)
     is_paid = models.BooleanField()
+
+class UserProfile(models.Model):
+    user = models.ForeignKey(User, unique=True)
+    name = models.CharField(max_length=30)
+    domain_owner = models.BooleanField()
+    domain = models.URLField()
+
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
+
