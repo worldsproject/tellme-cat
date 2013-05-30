@@ -8,8 +8,63 @@ class CreateStoryAchievement():
 
     def evaluate(self, user, *args, **kwargs):
         if Story.objects.filter(user=user).count() > 0:
-            print("Got it")
             return True
         else:
-            print("No")
+            return False
+
+class TenStoryAchievement():
+    name = 'Tenth Story'
+    key = 'tenth.story'
+    description = "You've created your tenth story to be followed up on."
+    bonus = 100
+
+    def evaluate(self, user, *args, **kwargs):
+        if Story.objects.filter(user=user).count >= 10:
+            return True
+        else:
+            return False
+
+class FiftyStoryAchievement():
+    name = 'Fiftieth Story'
+    key = 'fiftieth.story'
+    description = "You've created your fiftieth story to be followed up on."
+    bonus = 500
+
+    def evaluate(self, user, *args, **kwargs):
+        if Story.objects.filter(user=user).count >= 50:
+            return True
+        else:
+            return False
+class HundredStoryAchievement():
+    name = 'Hundredth Story'
+    key = 'hundredth.story'
+    description = "You've created your hundredth story to be followed up on."
+    bonus = 1000
+
+    def evaluate(self, user, *args, **kwargs):
+        if Story.objects.filter(user=user).count >= 100:
+            return True
+        else:
+            return False
+class FiveHundredStoryAchievement():
+    name = 'Five Hundredth Story'
+    key = 'five.hundredth.story'
+    description = "You've created your five hundredth story to be followed up on."
+    bonus = 5000
+
+    def evaluate(self, user, *args, **kwargs):
+        if Story.objects.filter(user=user).count >= 500:
+            return True
+        else:
+            return False
+class TenStoryAchievement():
+    name = 'Tenth Story'
+    key = 'tenth.story'
+    description = "You've created your tenth story to be followed up on."
+    bonus = 100
+
+    def evaluate(self, user, *args, **kwargs):
+        if Story.objects.filter(user=user).count >= 10:
+            return True
+        else:
             return False
