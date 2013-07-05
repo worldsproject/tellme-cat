@@ -177,7 +177,7 @@ LOGGING = {
 
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/list'
-SITE_URL = 'http://127.0.0.1:5432'
+SITE_URL = 'http://127.0.0.1:8000'
 
 ACHIEVEMENT_CLASSES = ['followup.badges',]
 ACHIEVEMENT_MIDDLEWARE_REQUEST_METHODS = ['post', 'put', 'delete']

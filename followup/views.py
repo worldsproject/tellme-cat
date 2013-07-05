@@ -12,33 +12,16 @@ import BeautifulSoup
 from achievements.utils import get_user_score
 from django.views.generic import TemplateView
 
-class ListView(TemplateView):
-    def get(self, request, *args, **kwargs):
-        stories = request.user.story_set.all()
-        data = []
-        data.append('>')
-
-        for story in stories:
-            data.append(story)
-            fu = story.followup_set.all()
-
-            data.append('>')
-
-            if not fu:
-                data.append('x')
-                data.append('<')
-            else:
-                for f in fu:
-                    data.append(f)
-                data.append('<')
-        data.append('<')
-
+def home(request):
+    karma = "None Yet."
+    if request.user.is_authenticated():
         karma = get_user_score(request.user)
-        karma = "Moo"
-        println*("Hi")
 
-        return render_to_response('list.html', {'data':data, 'karma':karma,}, context_instance=RequestContext(request))
-        
+    return render_to_response('index.html', {'karma':karma}, context_instance=RequestContext(request))
+@login_required
+def add_page(request):
+    return render_to_response('add_url.html', {'karma':get_user_score(request.user)}, context_instance=RequestContext(request))
+
 @login_required
 def add(request):
     url = request.POST['url']
@@ -66,6 +49,10 @@ def delete(request):
     return redirect('/list.html')
 
 @login_required
+def respond_page(request):
+    return render_to_response('add_url.html', {'karma':get_user_score(request.user)}, context_instance=RequestContext(request))
+
+@login_required
 def respond(request):
     old = request.POST['old']
     new = request.POST['new']
@@ -91,22 +78,6 @@ def respond(request):
     r.save() 
     return redirect('/list.html')
 
-def process_login(request):
-    username = request.POST['username']
-    password = request.POST['password']
-
-    user = authenticate(username=username, password=password)
-
-    if user is not None:
-        auth_login(request, user)
-        return redirect('/list.html')
-    else:
-        return redirect('/register.html')
-        
-def process_logout(request):
-    logout(request)
-    return redirect('/')
-
 @login_required
 def list_page(request):
     stories = request.user.story_set.all()
@@ -127,14 +98,4 @@ def list_page(request):
             data.append('<')
     data.append('<')
 
-    return render_to_response('list.html', {'data':data,}, context_instance=RequestContext(request))
-
-def register_user(request):
-    email = request.POST['email']
-    password = request.POST['password']
-
-    User.objects.create_user(email, email, password)
-    user = authenticate(username=email, password=password)
-    auth_login(request, user)
-
-    return redirect('/list')
+    return render_to_response('list.html', {'data':data, 'karma':get_user_score(request.user)}, context_instance=RequestContext(request))
