@@ -9,8 +9,36 @@ from urlparse import urlparse
 from models import Story, FollowUp
 import urllib
 import BeautifulSoup
+from achievements.utils import get_user_score
+from django.views.generic import TemplateView
 
+class ListView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        stories = request.user.story_set.all()
+        data = []
+        data.append('>')
 
+        for story in stories:
+            data.append(story)
+            fu = story.followup_set.all()
+
+            data.append('>')
+
+            if not fu:
+                data.append('x')
+                data.append('<')
+            else:
+                for f in fu:
+                    data.append(f)
+                data.append('<')
+        data.append('<')
+
+        karma = get_user_score(request.user)
+        karma = "Moo"
+        println*("Hi")
+
+        return render_to_response('list.html', {'data':data, 'karma':karma,}, context_instance=RequestContext(request))
+        
 @login_required
 def add(request):
     url = request.POST['url']
