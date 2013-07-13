@@ -10,6 +10,9 @@ from models import Story, FollowUp
 import urllib
 import BeautifulSoup
 
+@login_required
+def view_profile(request):
+    return render_to_response('profile.html', {}, context_instance=RequestContext(request))
 
 @login_required
 def add(request):
