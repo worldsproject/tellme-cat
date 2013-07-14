@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='row'>
+    <div class='span6 offset2'>
+        <input type="text" text='Cool Cat'></input>
+    </div>
+</div>
+
+<div class='row'>
+    <ul class='thumbnails'>
+        <li class='span2'>
+        <img src='{{ STATIC_URL }}/img/badges/{% if not cow %}bw/{% endif %}badge_cow.png' alt='Secret Badge'>
+            <div class='caption'>{% firstof cow "Locked Achievement" %}</div>
+        </li>
+        <li class='span2'>
+            <img src='{{ STATIC_URL }}/img/badges/{% if not dog %}bw/{% endif %}badge_dog.png' alt='Secret Badge'>
+            <div class='caption'>{% firstof dog "Locked Achievement" %}</div>
+        </li>
+        <li class='span2'>
+            <img src='{{ STATIC_URL }}/img/badges/{% if not dragon %}bw/{% endif %}badge_dragon.png' alt='Secret Badge'>
+            <div class='caption'>{% firstof dragon "Locked Achievement" %}</div>
+        </li>
+        <li class='span2'>
+            <img src='{{ STATIC_URL }}/img/badges/{% if not frog %}bw/{% endif %}badge_frog.png' alt='Secret Badge'>
+            <div class='caption'>{% firstof frog "Locked Achievement" %}</div>
+        </li>
+        <li class='span2'>
+            <img src='{{ STATIC_URL }}/img/badges/{% if not horse %}bw/{% endif %}badge_horse.png' alt='Secret Badge'>
+            <div class='caption'>{% firstof horse "Locked Achievement" %}</div>
+        </li>
+        <li class='span2'>
+            <img src='{{ STATIC_URL }}/img/badges/{% if not moose %}bw/{% endif %}badge_moose.png' alt='Secret Badge'>
+            <div class='caption'>{% firstof moose "Locked Achievement" %}</div>
+        </li>
+        <li class='span2'>
+            <img src='{{ STATIC_URL }}/img/badges/{% if not ostrich %}bw/{% endif %}badge_ostrich.png' alt='Secret Badge'>
+            <div class='caption'>{% firstof ostrich "Locked Achievement" %}</div>
+        </li>
+        <li class='span2'>
+            <img src='{{ STATIC_URL }}/img/badges/{% if not rabbit %}bw/{% endif %}badge_rabbit.png' alt='Secret Badge'>
+            <div class='caption'>{% firstof rabbit "Unlocked Achievement" %}</div>
+        </li>
+        <li class='span2'>
+            <img src='{{ STATIC_URL }}/img/badges/{% if not seahorse %}bw/{% endif %}badge_seahorse.png' alt='Secret Badge'>
+            <div class='caption'>{% firstof seahorse "Locked Achievement" %}</div>
+        </li>
+        <li class='span2'>
+            <img src='{{ STATIC_URL }}/img/badges/{% if not skunk %}bw/{% endif %}badge_skunk.png' alt='Secret Badge'>
+            <div class='caption'>{% firstof skunk "Locked Achievement" %}</div>
+        </li>
+</div>
+{% endblock content %}

@@ -8,6 +8,7 @@ class Story(models.Model):
     user = models.ForeignKey(User)
 
 class FollowUp(models.Model):
+    user = models.ForeignKey(User)
     link = models.URLField()
     domain = models.URLField()
     story = models.ForeignKey(Story)
