@@ -10,9 +10,33 @@ from models import Story, FollowUp
 import urllib
 import BeautifulSoup
 
+from achievements.models import Achievement, UserAchievement, User
+from achievements.signals import achievement_unlocked
+import importlib
+from badges import *
+
+def check_achievement(achievement, user):
+    if achievement.evaluate(user):
+        return achievement.name
+    else:
+        return False
+
 @login_required
 def view_profile(request):
-    return render_to_response('profile.html', {}, context_instance=RequestContext(request))
+    #gotten = UserAchievement.objects.filter(user_id = request.user.id)
+    cow = check_achievement(CreateStoryAchievement(), request.user)
+    dog = check_achievement(TenStoryAchievement(), request.user)
+    dragon = check_achievement(FiftyStoryAchievement(), request.user)
+    frog = check_achievement(HundredStoryAchievement(), request.user)
+    horse = check_achievement(FiveHundredStoryAchievement(), request.user)
+    moose = check_achievement(FollowUpAchievement(), request.user)
+    ostrich = check_achievement(TenFollowUpAchievement(), request.user)
+    rabbit = check_achievement(FiftyFollowUpAchievement(), request.user)
+    seahorse = check_achievement(HundredFollowUpAchievement(), request.user)
+    skunk = check_achievement(FiveHundredFollowUpAchievement(), request.user)
+
+    data = {'cow':cow, "frog":frog, 'ostrich':ostrich, 'skunk':skunk, 'dog':dog, 'horse':horse, 'rabbit':rabbit, 'dragon':dragon, 'seahorse':seahorse, 'moose':moose}
+    return render_to_response('profile.html', data, context_instance=RequestContext(request))
 
 @login_required
 def add(request):
@@ -62,7 +86,7 @@ def respond(request):
 
     # if nothing is returned, we need to return an error.
 
-    r = FollowUp(link=new_parsed.geturl(), domain=new_parsed[1], story=story[0])
+    r = FollowUp(user=request.user, link=new_parsed.geturl(), domain=new_parsed[1], story=story[0])
     r.save() 
     return redirect('/list.html')
 

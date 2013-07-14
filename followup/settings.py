@@ -180,4 +180,4 @@ LOGIN_REDIRECT_URL = '/list'
 SITE_URL = 'http://localhost:8000'
 
 ACHIEVEMENT_CLASSES = ['followup.badges',]
-ACHIEVEMENT_MIDDLEWARE_REQUEST_METHODS = ['post', 'put', 'delete']
+ACHIEVEMENT_MIDDLEWARE_REQUEST_METHODS = ['post',]
