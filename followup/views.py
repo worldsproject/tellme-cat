@@ -43,7 +43,7 @@ def view_profile(request):
     seahorse = check_achievement(HundredFollowUpAchievement(), request.user)
     skunk = check_achievement(FiveHundredFollowUpAchievement(), request.user)
 
-    data = {'cow':cow, "frog":frog, 'ostrich':ostrich, 'skunk':skunk, 'dog':dog, 'horse':horse, 'rabbit':rabbit, 'dragon':dragon, 'seahorse':seahorse, 'moose':moose}
+    data = {'karma':get_user_score(request.user), 'cow':cow, "frog":frog, 'ostrich':ostrich, 'skunk':skunk, 'dog':dog, 'horse':horse, 'rabbit':rabbit, 'dragon':dragon, 'seahorse':seahorse, 'moose':moose}
     return render_to_response('profile.html', data, context_instance=RequestContext(request))
 
 @login_required
