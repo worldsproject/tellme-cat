@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
+from feeds import FollowUps
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -17,6 +18,7 @@ urlpatterns = patterns('followup.views',
     url(r'^respond', 'respond_page'),
     url(r'^list', 'list_page', name='list'),
     url(r'^profile', 'view_profile'),
+    url(r'^updates', FollowUps()),
     url(r'^$', 'home'),
     url(r'^privacy', TemplateView.as_view(template_name='privacy.html')),
     url(r'^browserid/', include('django_browserid.urls')),
