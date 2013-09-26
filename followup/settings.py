@@ -103,7 +103,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'achievements.middleware.AutoAchievementChecker'
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -130,7 +129,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'followup',
     'south',
-    'achievements',
     # 'django.contrib.admindocs',
 )
 
@@ -178,6 +176,3 @@ LOGGING = {
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/list'
 SITE_URL = 'http://127.0.0.1:8000'
-
-ACHIEVEMENT_CLASSES = ['followup.badges',]
-ACHIEVEMENT_MIDDLEWARE_REQUEST_METHODS = ['post',]

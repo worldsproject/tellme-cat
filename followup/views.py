@@ -9,42 +9,7 @@ from urlparse import urlparse
 from models import Story, FollowUp
 import urllib
 import BeautifulSoup
-from achievements.utils import get_user_score
 from django.views.generic import TemplateView
-from badges import *
-
-def home(request):
-    karma = "None Yet."
-    if request.user.is_authenticated():
-        karma = get_user_score(request.user)
-
-    return render_to_response('index.html', {'karma':karma}, context_instance=RequestContext(request))
-
-@login_required
-def add_page(request):
-    return render_to_response('add_url.html', {'karma':get_user_score(request.user)}, context_instance=RequestContext(request))
-
-def check_achievement(achievement, user):
-    if achievement.evaluate(user):
-        return achievement.name
-    else:
-        return False
-
-@login_required
-def view_profile(request):
-    cow = check_achievement(CreateStoryAchievement(), request.user)
-    dog = check_achievement(TenStoryAchievement(), request.user)
-    dragon = check_achievement(FiftyStoryAchievement(), request.user)
-    frog = check_achievement(HundredStoryAchievement(), request.user)
-    horse = check_achievement(FiveHundredStoryAchievement(), request.user)
-    moose = check_achievement(FollowUpAchievement(), request.user)
-    ostrich = check_achievement(TenFollowUpAchievement(), request.user)
-    rabbit = check_achievement(FiftyFollowUpAchievement(), request.user)
-    seahorse = check_achievement(HundredFollowUpAchievement(), request.user)
-    skunk = check_achievement(FiveHundredFollowUpAchievement(), request.user)
-
-    data = {'karma':get_user_score(request.user), 'cow':cow, "frog":frog, 'ostrich':ostrich, 'skunk':skunk, 'dog':dog, 'horse':horse, 'rabbit':rabbit, 'dragon':dragon, 'seahorse':seahorse, 'moose':moose}
-    return render_to_response('profile.html', data, context_instance=RequestContext(request))
 
 @login_required
 def add(request):
@@ -71,10 +36,6 @@ def delete(request):
     story.delete()
 
     return redirect('/list.html')
-
-@login_required
-def respond_page(request):
-    return render_to_response('add_url.html', {'karma':get_user_score(request.user)}, context_instance=RequestContext(request))
 
 @login_required
 def respond(request):
